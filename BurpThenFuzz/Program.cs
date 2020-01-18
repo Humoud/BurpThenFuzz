@@ -61,18 +61,22 @@ namespace BurpThenFuzz
                 // Process GET request nodes
                 if(methodNode.InnerText == "GET")
                 {
-                    // check for duplicates
-                    var match = urlsGET.FirstOrDefault(
-                        getReqNode => 
-                            getReqNode.SelectSingleNode("url").InnerText == urlNode.InnerText
-                    );
-                    // if new entry
-                    if (match == null)
+                    // if the URL contains a GET parameter
+                    if (urlNode.InnerText.Contains('?'))
                     {
-                        Console.WriteLine("New Entry!");
-                        Console.WriteLine("Testing <GET>: " + urlNode.InnerText);
-                        urlsGET.Add(node);
-                        HandleGetRequest(node);
+                        // check for duplicates
+                        var match = urlsGET.FirstOrDefault(
+                        getReqNode =>
+                            getReqNode.SelectSingleNode("url").InnerText == urlNode.InnerText
+                        );
+                        // if new entry
+                        if (match == null)
+                        {
+                            Console.WriteLine("New Entry!");
+                            Console.WriteLine("Testing <GET>: " + urlNode.InnerText);
+                            urlsGET.Add(node);
+                            HandleGetRequest(node);
+                        }
                     }
                 }
                 // Process POST request nodes
@@ -168,6 +172,7 @@ namespace BurpThenFuzz
         {
             XmlNode urlNode = node.SelectSingleNode("url");
             string url = urlNode.InnerText;
+
             string[] getParams = url.Remove(0, url.IndexOf("?") + 1).Split('&');
 
             foreach (string p in getParams)
@@ -200,7 +205,7 @@ namespace BurpThenFuzz
                             using (var reader = new StreamReader(errorResponse.GetResponseStream()))
                             {
                                 string error = reader.ReadToEnd();
-                                Console.WriteLine("=======\nError:\n\n{0}=======\n",error);
+                                Console.WriteLine("=======\nError:\n\n{0}=======\n", error);
                                 //TODO: use JSON.net to parse this string and look at the error message
                             }
                         }
