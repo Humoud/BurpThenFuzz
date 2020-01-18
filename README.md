@@ -1,5 +1,4 @@
 # BurpThenFuzz
-
 Export the history tab from burp and pass it to this script.
 
 The script will:
@@ -11,3 +10,11 @@ The script will:
 * Pass Through a Proxy
 * Analyze Parameters [TODO]
 * Handle other HTTP Methods [TODO]
+
+### Usage
+`BurpThenFuzz.exe <SCOPE/Target IP> <BURP-HISTORY-FILE-PATH.xml> <PROXY-IP> <PROXY-PORT>`
+
+`BurpThenFuzz.exe 192.168.56.101 burpdata.xml 127.0.0.1 8080`
+
+#### Demo
+![GIF](https://media.giphy.com/media/cmT8gq3jl6e5DPetcc/giphy.gif)
