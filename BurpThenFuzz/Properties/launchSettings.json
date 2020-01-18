@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BurpThenFuzz": {
+      "commandName": "Project",
+      "commandLineArgs": "192.168.56.101 \"D:\\Projects\\C# GreyHat\\data\\requests\\burp_requests.xml\" 127.0.0.1 8080"
+    }
+  }
+}
